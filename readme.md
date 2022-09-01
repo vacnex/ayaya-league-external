@@ -11,14 +11,13 @@
   <img src="https://img.shields.io/github/directory-file-count/botkalista/ayaya-league-external/scripts/userscripts?color=informational&label=Builtin%20Scripts&logo=javascript&type=file" alt="UserScripts count">
    &nbsp;
     <img align="top" src="https://img.shields.io/github/release-date/botkalista/ayaya-league-external" alt="Release Date"></img>
-    &nbsp;
-   [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T7ERHMQ)
 </p>
 </div>
 
 </div>
 
-
+   [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T7ERHMQ)
+   
 ## What's AyayaLeague ?
 
 AyayaLeague is an external script platform written in nodejs that supports custom user scripts.

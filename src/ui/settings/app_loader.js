@@ -6,66 +6,72 @@ const fs = require('fs');
 const path = require('path');
 
 const state = Vue.reactive({
-    version: "2.0.5",
-    vKeys,
-    updated: true,
-    inGame: false,
-    donations: [],
-    scripts: [
+  version: "2.0.5",
+  vKeys,
+  updated: true,
+  inGame: false,
+  donations: [],
+  scripts: [
+    {
+      script: 'default',
+      settings: [
+        { title: 'AYAYA-LEAGUE' },
         {
-            script: 'default', settings: [
-                { title: 'AYAYA-LEAGUE' },
-                {
-                    group: [
-                        { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
-                    ]
-                },
-                { desc: 'This enables/disables all scripts' }
-            ]
-        }
-    ]
+          group: [
+            { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
+          ]
+        },
+        { desc: 'This enables/disables all scripts' }
+      ]
+    }
+  ],
+  defaultMenuKey: {
+    CTRL: '0x11',
+    Spacebar: '0x20',
+  }
 });
 
 const app = Vue.createApp({
-    mounted,
-    data() { return state },
-    methods: {
-        toggleSettings,
-        updateSettings,
-        reloadScripts,
-        closeWindow,
-        openDonateLink,
-        openMarket
-    }
+  mounted,
+  data() { return state; },
+  methods: {
+    toggleSettings,
+    updateSettings,
+    reloadScripts,
+    closeWindow,
+    openDonateLink,
+    openMarket,
+    onChange(event) {
+      console.log(event.target.value);
+    },
+  }
 });
-
 function openDonateLink() {
-    electron.shell.openExternal('https://ko-fi.com/ayayaleague')
+  electron.shell.openExternal('https://ko-fi.com/ayayaleague');
 }
 
 function closeWindow() {
-    window.close();
+  window.close();
 }
-
 function reloadScripts(event) {
-    ipcRenderer.send('reloadScripts');
+  ipcRenderer.send('reloadScripts');
 }
 
 function updateSettings(script, s, e) {
-    const name = script.name;
-    const id = e.id;
-    const value = e.value;
-    console.log('updateSettings', { scriptName: name, id, value })
-    ipcRenderer.send('settings', { scriptName: name, id, value })
+  const name = script.name;
+  const id = e.id;
+  const value = e.value;
+  console.log('updateSettings', { scriptName: name, id, value });
+  ipcRenderer.send('settings', { scriptName: name, id, value });
 }
 
 function toggleSettings() {
-    const settingsWindow = document.getElementsByClassName('settings')[0];
-    settingsWindow.classList.toggle('anim_enter');
+  const settingsWindow = document.getElementsByClassName('settings')[0];
+  settingsWindow.classList.toggle('anim_enter');
 }
 
 function openMarket() {
-    ipcRenderer.send('openMarket');
+  ipcRenderer.send('openMarket');
 }
 
 const appElement = document.getElementById('app');
@@ -79,30 +85,30 @@ appElement.style.visibility = 'hidden';
 
 
 fetch('http://95.216.218.179:7551/kofi').then(res => res.status != 500 ? res.json() : []).then(data => {
-    state.donations = data;
+  state.donations = data;
 });
 fetch('http://95.216.218.179:7551/static/ayaya_version').then(res => res.text()).then(data => {
-    state.updated = (data == `v${state.version}`);
+  state.updated = (data == `v${state.version}`);
 });
 
 
 ipcRenderer.on('toggleSettings', (e, data) => {
-    console.log('TOGGLE SETTINGS')
-    toggleSettings();
+  console.log('TOGGLE SETTINGS');
+  toggleSettings();
 });
 
 
 
 ipcRenderer.on('scripts', (e, scripts) => {
-    state.scripts = scripts;
-    console.log('Got script settings', scripts)
+  state.scripts = scripts;
+  console.log('Got script settings', scripts);
 });
 
 
 ipcRenderer.on('inGame', (e, value) => {
-    console.log('got inGame', value);
-    state.inGame = value;
-    if (value == true) { loop(); }
+  console.log('got inGame', value);
+  state.inGame = value;
+  if (value == true) { loop(); }
 });
 
 
@@ -111,13 +117,13 @@ app.mount('#app');
 ipcRenderer.send('loaded');
 
 function mounted() {
-    setTimeout(() => {
-        appElement.style.visibility = 'visible';
-        const loader = document.getElementsByClassName('loader')[0];
-        loader.style.display = 'none';
-        ipcRenderer.send('loaded');
-        ipcRenderer.send('settingsRequest')
-    }, 1000);
+  setTimeout(() => {
+    appElement.style.visibility = 'visible';
+    const loader = document.getElementsByClassName('loader')[0];
+    loader.style.display = 'none';
+    ipcRenderer.send('loaded');
+    ipcRenderer.send('settingsRequest');
+  }, 1000);
 }
 
 

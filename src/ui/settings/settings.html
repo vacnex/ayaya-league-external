@@ -70,7 +70,7 @@
                   <div v-else-if="e.type=='key'" style="padding: 4px 0; width: 160px">
 
                     <el-select v-model="e.value" class="m-2" placeholder="Select key">
-                      <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="key[2]" />
+                      <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
                     </el-select>
 
                   </div>
@@ -134,6 +134,17 @@
             <div class="setting-text"> Reload scripts </div>
             <div class="setting-value" style="padding: 6px;">
               <el-button @click="reloadScripts($event)" type="primary" plain> Reload scripts </el-button>
+            </div>
+          </div>
+          <div class="setting" style="display:flex; gap: 10px; flex-direction: column;">
+            <div class="setting-text" style="align-self: flex-start;"> Menu key </div>
+            <div class="setting-value" style="padding: 6px;display:flex; gap: 10px">
+              <el-select v-model="defaultMenuKey.CTRL" class="m-2" placeholder="Select key"  @change="onChange($event)">
+                <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
+              </el-select>
+              <el-select v-model="defaultMenuKey.Spacebar" class="m-2" placeholder="Select key" @change="test(script, s, e)">
+                <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
+              </el-select>
             </div>
           </div>
           <div class="setting">

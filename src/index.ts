@@ -3,21 +3,25 @@ console.log('ELECTRON', process.versions.electron, 'NODE', process.versions.node
 // import * as ElectronRemote from '@electron/remote/main';
 // ElectronRemote.initialize();
 
-import { app, BrowserWindow, ipcMain, ipcRenderer, protocol, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, ipcRenderer, protocol, screen, dialog } from 'electron';
 
 import League from './components/League';
 import Watcher from './services/LeagueWatcherService';
 import DrawService from './services/DrawService';
 import Manager from './models/main/Manager';
 
+
 // import WinApi from './components/winapi/Winapi';
 
 import * as path from 'path';
 import * as ScriptService from './services/ScriptService';
+import { CachedClass } from './components/CachedClass';
 
 const DEBUG = (process.env.debug?.trim() == 'true');
 
-app.whenReady().then(start);
+// app.whenReady().then(start);
+CachedClass.set('__offsets', [true, { expire: null, trial: false, iat: null }]);
+init();
 
 let overlayWin;
 let settingsWin;
@@ -81,7 +85,17 @@ function createSettings() {
   return win;
 }
 
+function init() {
 
+  // Before you start messing with this code, this is not for checking your license it's only used to show you the message <.<
+  // The license checking is server-side
+
+  if (CachedClass.get('__offsets')[0] == false) {
+    dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' })
+    setTimeout(() => { app.exit(); }, 10000);
+  }
+
+}
 
 async function start() {
 
@@ -124,15 +138,21 @@ async function start() {
     target.value = value;
   });
 
+  ipcMain.on('expired', (e, args) => {
+    app.exit();
+  });
+
   ipcMain.on('reloadScripts', () => {
     ScriptService.reloadScripts();
     sendScripts();
+    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
     if (Watcher.isRunning) ScriptService.executeFunction('setup');
 
   });
 
   ipcMain.on('settingsRequest', () => {
     sendScripts();
+    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
   });
 
   Watcher.startLoopCheck();

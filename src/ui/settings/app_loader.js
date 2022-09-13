@@ -6,11 +6,13 @@ const fs = require('fs');
 const path = require('path');
 
 const state = Vue.reactive({
-  version: "2.0.5",
+  version: "2.1.0",
   vKeys,
   updated: true,
   inGame: false,
   donations: [],
+  offsets: {},
+  now: Date.now(),
   scripts: [
     {
       script: 'default',
@@ -25,6 +27,17 @@ const state = Vue.reactive({
       ]
     }
   ],
+  computed: {
+    durationString() {
+      if ((state.offsets[1]?.expire)) {
+        const a = ((state.offsets[1]?.expire - state.now) / 1000).toFixed(0);
+        const b = ((state.offsets[1]?.expire - state.now) / 1000 / 60).toFixed(0);
+        return `DURATION: ${a} s [${b} min]`;
+      } else {
+        return `DURATION: UNLIMITED`;
+      }
+    }
+  },
   defaultMenuKey: {
     CTRL: '0x11',
     Spacebar: '0x20',
@@ -91,6 +104,17 @@ fetch('http://95.216.218.179:7551/static/ayaya_version').then(res => res.text())
   state.updated = (data == `v${state.version}`);
 });
 
+ipcRenderer.on('__offsets', (e, data) => {
+  state.offsets = JSON.parse(data);
+});
+
+setInterval(() => {
+  state.now = Date.now();
+  if (state.now >= state.offsets[0].expire) {
+    close();
+    ipcRenderer.send('expired');
+  }
+}, 1000);
 
 ipcRenderer.on('toggleSettings', (e, data) => {
   console.log('TOGGLE SETTINGS');

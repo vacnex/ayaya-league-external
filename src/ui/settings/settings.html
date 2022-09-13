@@ -40,7 +40,6 @@
 
         <div class="row"
           style="display: flex; gap: 10px; justify-content: flex-end; font-size: 12px; margin-right: 10px; padding-bottom: 20px">
-
           <div class="version">
             <div class="text">updated</div>
             <div class="value" v-if="updated" style="background-color: green;">{{updated}}</div>
@@ -51,6 +50,7 @@
             <div class="text">version</div>
             <div class="value">{{version}}</div>
           </div>
+
         </div>
         <div class="row"
           style="display: flex; gap: 10px; justify-content: center; font-size: 16px; color: white;  line-height: 25px; margin-right: 10px; padding-bottom: 20px">
@@ -58,112 +58,76 @@
           <br>
           {{durationString}}
         </div>
-        
-        <template v-for="script of scripts">
-          <template v-for="s of script.settings">
 
-            <div v-if="s.title" class="settings-title"> {{s.title}} </div>
-            <div v-else-if="s.desc" class="settings-desc"> {{s.desc}} </div>
-            <div v-else-if="s.group" class="settings-content">
-              <div class="setting" v-for="e of s.group">
-
-                <div class="setting-text" v-if="e.text && e.type != 'radio'">{{e.text}}</div>
-
-                <div class="setting-value">
-                  <el-switch :class="{'switch-style-alt': e.style == 2}" v-if="e.type=='toggle'" v-model="e.value"
-                    @change="updateSettings(script, s, e)">
-                  </el-switch>
-                  <div v-else-if="e.type=='key'" style="padding: 4px 0; width: 160px">
-
-                    <el-select v-model="e.value" class="m-2" placeholder="Select key">
-                      <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
-                    </el-select>
-
-                  </div>
-                  <div v-else-if="e.type=='radio'"
-                    style="padding: 2px 0 5px 16px; display: flex; align-items: center; display: flex; flex-direction: column;">
-                    <div style="padding-bottom: 3px;"> {{e.text}} </div>
-                    <el-radio-group v-model="e.value">
-                      <el-radio-button v-for="option of e.options" :label="option" />
-                    </el-radio-group>
-                  </div>
-                  <div v-else-if="e.type=='slider'" style="display: flex; align-items: center; gap:8px;">
-                    <span> {{e.value}}</span>
-                    <el-slider :class="{'small': e.size==1, 'medium': e.size==2}" v-model="e.value"
-                      @change="updateSettings(script, s, e)" :min="e.min" :max="e.max" />
-                  </div>
-                  <div v-else-if="e.type=='text'" style="padding: 4px 0">
-                    <el-input v-model="e.value"> </el-input>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </template>
-        </template>
-
-
-        <div class="settings-title"> Donations </div>
-        <div class="settings-content">
-          <div class="setting">
-            <div class="setting-text"> Donations </div>
-            <div class="setting-value" style="padding: 6px;">
-              <el-button @click="openDonateLink()" type="success"> Donate </el-button>
-            </div>
-          </div>
-          <div class="setting" v-for="donation of donations">
-            <div class="setting-text">
-              <span style="font-size: 12px; color: rgb(216, 216, 216);">{{donation.amount}}
-                {{donation.currency}} </span>
-              <span style="color: white; margin-left: 5px;"> {{donation.name}}</span>
-            </div>
-            <div class="setting-value" style="padding: 6px;">
-              {{donation.message}}
-            </div>
-          </div>
-        </div>
-        <div class="settings-desc"> You can support AyayaLeague at <br> ko-fi.com/ayayaleague</div>
-
-
-
-        <div class="settings-title"> Developers </div>
-        <div class="settings-content">
-          <div class="setting">
-            <div class="setting-text"> Game status: </div>
-            <div class="setting-value" style="padding: 6px;">
-              <el-tag v-if="inGame==false" class="ml-2" type="danger" round plain> notInGame </el-tag>
-              <el-tag v-if="inGame==true" class="ml-2" round plain> inGame </el-tag>
-            </div>
-          </div>
-          <div class="setting">
-            <div class="setting-text"> Reload scripts </div>
-            <div class="setting-value" style="padding: 6px;">
-              <el-button @click="reloadScripts($event)" type="primary" plain> Reload scripts </el-button>
-            </div>
-          </div>
-          <div class="setting" style="display:flex; gap: 10px; flex-direction: column;">
-            <div class="setting-text" style="align-self: flex-start;"> Menu key </div>
-            <div class="setting-value" style="padding: 6px;display:flex; gap: 10px">
-              <el-select v-model="defaultMenuKey.CTRL" class="m-2" placeholder="Select key"  @change="onChange($event)">
-                <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
-              </el-select>
-              <el-select v-model="defaultMenuKey.Spacebar" class="m-2" placeholder="Select key" @change="test(script, s, e)">
-                <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
-              </el-select>
-            </div>
-          </div>
-          <div class="setting">
-            <div class="setting-text"> Close </div>
-            <div class="setting-value" style="padding: 6px;">
-              <el-button @click="closeWindow()" type="danger"> Close </el-button>
-            </div>
-          </div>
-        </div>
-        <div class="settings-desc"> Developer things </div>
 
       </div>
     </div>
+
+    </template>
+    </template>
+
+
+    <div class="settings-title"> Donations </div>
+    <div class="settings-content">
+      <div class="setting">
+        <div class="setting-text"> Donations </div>
+        <div class="setting-value" style="padding: 6px;">
+          <el-button @click="openDonateLink()" type="success"> Donate </el-button>
+        </div>
+      </div>
+      <div class="setting" v-for="donation of donations">
+        <div class="setting-text">
+          <span style="font-size: 12px; color: rgb(216, 216, 216);">{{donation.amount}}
+            {{donation.currency}} </span>
+          <span style="color: white; margin-left: 5px;"> {{donation.name}}</span>
+        </div>
+        <div class="setting-value" style="padding: 6px;">
+          {{donation.message}}
+        </div>
+      </div>
+    </div>
+    <div class="settings-desc"> You can support AyayaLeague at <br> ko-fi.com/ayayaleague</div>
+
+
+
+    <div class="settings-title"> Developers </div>
+    <div class="settings-content">
+      <div class="setting">
+        <div class="setting-text"> Game status: </div>
+        <div class="setting-value" style="padding: 6px;">
+          <el-tag v-if="inGame==false" class="ml-2" type="danger" round plain> notInGame </el-tag>
+          <el-tag v-if="inGame==true" class="ml-2" round plain> inGame </el-tag>
+        </div>
+      </div>
+      <div class="setting">
+        <div class="setting-text"> Reload scripts </div>
+        <div class="setting-value" style="padding: 6px;">
+          <el-button @click="reloadScripts($event)" type="primary" plain> Reload scripts </el-button>
+        </div>
+      </div>
+      <div class="setting" style="display:flex; gap: 10px; flex-direction: column;">
+        <div class="setting-text" style="align-self: flex-start;"> Menu key </div>
+        <div class="setting-value" style="padding: 6px;display:flex; gap: 10px">
+          <el-select v-model="defaultMenuKey.CTRL" class="m-2" placeholder="Select key" @change="onChange($event)">
+            <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
+          </el-select>
+          <el-select v-model="defaultMenuKey.Spacebar" class="m-2" placeholder="Select key"
+            @change="test(script, s, e)">
+            <el-option v-for="key in vKeys" :key="key[2]" :label="key[2]" :value="isNaN(key[2])?key[1]:key[0]" />
+          </el-select>
+        </div>
+      </div>
+      <div class="setting">
+        <div class="setting-text"> Close </div>
+        <div class="setting-value" style="padding: 6px;">
+          <el-button @click="closeWindow()" type="danger"> Close </el-button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-desc"> Developer things </div>
+
+  </div>
+  </div>
   </div>
 
 

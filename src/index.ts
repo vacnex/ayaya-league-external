@@ -137,11 +137,7 @@ async function start() {
     if (!target) return;
     target.value = value;
   });
-
-  ipcMain.on('expired', (e, args) => {
-    app.exit();
-  });
-
+  
   ipcMain.on('reloadScripts', () => {
     ScriptService.reloadScripts();
     sendScripts();
@@ -150,9 +146,22 @@ async function start() {
 
   });
 
+  ipcMain.on('expired', (e, args) => {
+      app.exit();
+  });
+
+
+  ipcMain.on('reloadScripts', () => {
+      ScriptService.reloadScripts();
+      sendScripts();
+      settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
+      if (Watcher.isRunning) ScriptService.executeFunction('setup');
+
+  });
+
   ipcMain.on('settingsRequest', () => {
-    sendScripts();
-    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
+      sendScripts();
+      settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
   });
 
   Watcher.startLoopCheck();

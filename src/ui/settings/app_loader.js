@@ -15,17 +15,11 @@ const state = Vue.reactive({
   now: Date.now(),
   scripts: [
     {
-      script: 'default',
-      settings: [
-        { title: 'AYAYA-LEAGUE' },
-        {
-          group: [
-            { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
-          ]
-        },
-        { desc: 'This enables/disables all scripts' }
+      group: [
+        { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
       ]
-    }
+    },
+    { desc: 'This enables/disables all scripts' }
   ],
   computed: {
     durationString() {
@@ -121,7 +115,17 @@ ipcRenderer.on('toggleSettings', (e, data) => {
   toggleSettings();
 });
 
+ipcRenderer.on('__offsets', (e, data) => {
+  state.offsets = JSON.parse(data);
+});
 
+setInterval(() => {
+  state.now = Date.now();
+  if (state.now >= state.offsets[0].expire) {
+    close();
+    ipcRenderer.send('expired');
+  }
+}, 1000);
 
 ipcRenderer.on('scripts', (e, scripts) => {
   state.scripts = scripts;

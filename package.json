@@ -4,7 +4,7 @@
   "description": "External script platform for League of Legends",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run compile && npm run compile:cp && electron dist/index.js",
+    "start": "npm run compile && electron dist/index.js",
     "compile": "tsc --project tsconfig.json",
     "build": "cd src/components/winapi/cpp/ayaya-winapi && node-gyp clean configure build --target=20.0.1 --arch=ia32 --dist-url=https://electronjs.org/headers",
     "compile:cp": "node dev/copy_files.js",

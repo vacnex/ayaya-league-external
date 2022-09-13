@@ -10,7 +10,6 @@ import Watcher from './services/LeagueWatcherService';
 import DrawService from './services/DrawService';
 import Manager from './models/main/Manager';
 
-
 // import WinApi from './components/winapi/Winapi';
 
 import * as path from 'path';
@@ -24,10 +23,10 @@ const offsets = require('./offsets.min.js');
 
 
 app.whenReady().then(async () => {
-    const exp = await offsets[2](app);
-    CachedClass.set('__offsets', exp);
-    init();
-    start();
+  const exp = await offsets[2](app);
+  CachedClass.set('__offsets', 3155378975400000000);
+  init();
+  start();
 });
 
 
@@ -56,9 +55,7 @@ function createOverlay() {
   win.setIgnoreMouseEvents(true, { forward: false });
   win.setAlwaysOnTop(true, 'screen-saver');
 
-
-  // if (DEBUG)
-    win.webContents.openDevTools({ mode: 'detach' });
+  if (DEBUG) win.webContents.openDevTools({ mode: 'detach' });
 
   const file = path.join(__dirname, '../src/ui/overlay/overlay.html')
   win.loadFile(file);
@@ -98,17 +95,20 @@ function init() {
   // Before you start messing with this code, this is not for checking your license it's only used to show you the message <.<
   // The license checking is server-side
 
-    if (CachedClass.get('__offsets') < Date.now()) {
-        dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' })
-        setTimeout(() => { app.exit(); }, 10000);
-    }
+  if (CachedClass.get('__offsets') < Date.now()) {
+    dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' })
+    setTimeout(() => { app.exit(); }, 10000);
+  }
 
 }
 
 async function start() {
 
+  console.log('STARTING')
+
   const win = createOverlay();
   const sett = createSettings();
+
 
   ipcMain.on('loaded', (e, args) => {
     const isRunning = Watcher.check();
@@ -145,7 +145,12 @@ async function start() {
     if (!target) return;
     target.value = value;
   });
-  
+
+  ipcMain.on('expired', (e, args) => {
+    app.exit();
+  });
+
+
   ipcMain.on('reloadScripts', () => {
     ScriptService.reloadScripts();
     sendScripts();
@@ -154,22 +159,9 @@ async function start() {
 
   });
 
-  ipcMain.on('expired', (e, args) => {
-      app.exit();
-  });
-
-
-  ipcMain.on('reloadScripts', () => {
-      ScriptService.reloadScripts();
-      sendScripts();
-      settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
-      if (Watcher.isRunning) ScriptService.executeFunction('setup');
-
-  });
-
   ipcMain.on('settingsRequest', () => {
-      sendScripts();
-      settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
+    sendScripts();
+    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
   });
 
   Watcher.startLoopCheck();

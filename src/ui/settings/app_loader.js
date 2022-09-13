@@ -6,36 +6,26 @@ const fs = require('fs');
 const path = require('path');
 
 const state = Vue.reactive({
-  version: "2.1.0",
-  vKeys,
-  updated: true,
-  inGame: false,
-  donations: [],
-  offsets: {},
-  now: Date.now(),
-  scripts: [
-    {
-      group: [
-        { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
-      ]
-    },
-    { desc: 'This enables/disables all scripts' }
-  ],
-  computed: {
-    durationString() {
-      if ((state.offsets[1]?.expire)) {
-        const a = ((state.offsets[1]?.expire - state.now) / 1000).toFixed(0);
-        const b = ((state.offsets[1]?.expire - state.now) / 1000 / 60).toFixed(0);
-        return `DURATION: ${a} s [${b} min]`;
-      } else {
-        return `DURATION: UNLIMITED`;
-      }
-    }
-  },
-  defaultMenuKey: {
-    CTRL: '0x11',
-    Spacebar: '0x20',
-  }
+    version: "2.2.0",
+    vKeys,
+    updated: true,
+    inGame: false,
+    donations: [],
+    offsets: {},
+    now: Date.now(),
+    scripts: [
+        {
+            script: 'default', settings: [
+                { title: 'AYAYA-LEAGUE' },
+                {
+                    group: [
+                        { id: 'enabled', text: 'Enable', type: 'toggle', style: 2, value: true }
+                    ]
+                },
+                { desc: 'This enables/disables all scripts' }
+            ]
+        }
+    ]
 });
 
 const app = Vue.createApp({
@@ -51,6 +41,13 @@ const app = Vue.createApp({
     onChange(event) {
       console.log(event.target.value);
     },
+    computed: {
+      durationString() {
+        const a = ((state.offsets - state.now) / 1000).toFixed(0);
+        const b = ((state.offsets - state.now) / 1000 / 60).toFixed(0);
+        return `DURATION: ${a} s [${b} min]`;
+      }
+    }
   }
 });
 function openDonateLink() {
@@ -103,29 +100,11 @@ ipcRenderer.on('__offsets', (e, data) => {
 });
 
 setInterval(() => {
-  state.now = Date.now();
-  if (state.now >= state.offsets[0].expire) {
-    close();
-    ipcRenderer.send('expired');
-  }
-}, 1000);
-
-ipcRenderer.on('toggleSettings', (e, data) => {
-  console.log('TOGGLE SETTINGS');
-  toggleSettings();
-});
-
-ipcRenderer.on('__offsets', (e, data) => {
-  state.offsets = JSON.parse(data);
-});
-
-setInterval(() => {
-  state.now = Date.now();
-  if (state.now >= state.offsets[0].expire) {
-    close();
-    ipcRenderer.send('expired');
-  }
-}, 1000);
+    state.now = Date.now();
+    if (state.now >= state.offsets) {
+        ipcRenderer.send('expired');
+    }
+}, 1000)
 
 ipcRenderer.on('scripts', (e, scripts) => {
   state.scripts = scripts;

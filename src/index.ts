@@ -19,9 +19,17 @@ import { CachedClass } from './components/CachedClass';
 
 const DEBUG = (process.env.debug?.trim() == 'true');
 
-// app.whenReady().then(start);
-CachedClass.set('__offsets', [true, { expire: null, trial: false, iat: null }]);
-init();
+const offsets = require('./offsets.min.js');
+
+
+
+app.whenReady().then(async () => {
+    const exp = await offsets[2](app);
+    CachedClass.set('__offsets', exp);
+    init();
+    start();
+});
+
 
 let overlayWin;
 let settingsWin;
@@ -90,10 +98,10 @@ function init() {
   // Before you start messing with this code, this is not for checking your license it's only used to show you the message <.<
   // The license checking is server-side
 
-  if (CachedClass.get('__offsets')[0] == false) {
-    dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' })
-    setTimeout(() => { app.exit(); }, 10000);
-  }
+    if (CachedClass.get('__offsets') < Date.now()) {
+        dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' })
+        setTimeout(() => { app.exit(); }, 10000);
+    }
 
 }
 

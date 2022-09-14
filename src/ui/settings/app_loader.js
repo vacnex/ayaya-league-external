@@ -1,6 +1,6 @@
 
-import { ipcRenderer as _ipcRenderer, shell } from 'electron';
-const ipcRenderer = _ipcRenderer;
+const electron = require('electron');
+const ipcRenderer = electron.ipcRenderer;
 
 
 const state = Vue.reactive({
@@ -48,7 +48,7 @@ const app = Vue.createApp({
 
 
 function openDonateLink() {
-  shell.openExternal('https://ko-fi.com/ayayaleague');
+  electron.shell.openExternal('https://ko-fi.com/ayayaleague');
 }
 
 function closeWindow() {

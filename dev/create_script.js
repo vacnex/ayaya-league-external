@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const rl = require("readline").createInterface({
+const rl = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
 });
@@ -37,9 +37,9 @@ const ScriptTemplate = scriptName => {
       },
       { desc: 'Description here' }
     ]
-  );`
+  );`;
 //endregion script template
-}
+};
 
 rl.setPrompt('Enter script name?: ');
 rl.prompt();

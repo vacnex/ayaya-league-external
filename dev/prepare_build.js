@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const rl = require("readline").createInterface({
+const rl = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
 });
@@ -38,6 +38,7 @@ const CreateRandomAppName = length => {
 // });
 console.log('Creating random app name');
 let settingData = JSON.parse(fs.readFileSync(packageJson));
+console.log(settingData.name);
 settingData.name = CreateRandomAppName(10);
 fs.writeFileSync(packageJson, JSON.stringify(settingData, null, '\t'));
 console.log(`New app name is ${settingData.name}`);

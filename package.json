@@ -9,7 +9,8 @@
     "build": "cd src/components/winapi/cpp/ayaya-winapi && node-gyp clean configure build --target=20.0.1 --arch=ia32 --dist-url=https://electronjs.org/headers",
     "compile:cp": "node dev/copy_files.js",
     "package": "node dev/prepare_build.js && electron-builder --win portable --ia32 && node dev/clean_build.js",
-    "initplugin": "node dev/create_script.js"
+    "initplugin": "node dev/create_script.js",
+    "prepare": "node dev/prepare_build.js"
   },
   "build": {
     "appId": "aya.ayayaleague.app",
@@ -57,8 +58,7 @@
     "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+      "ecmaVersion": "latest"
     },
     "plugins": [
       "@typescript-eslint"
@@ -78,7 +78,7 @@
       ],
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-function": "off",
-      "@typescript-eslint/no-inferrable-types": "off"
+      "@typescript-eslint/no-var-requires": "off"
     },
     "globals": {
       "manager": "readonly",

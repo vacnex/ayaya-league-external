@@ -1,8 +1,8 @@
 
-import { Vector2, Vector3, Vector4 } from "../Vector";
+import { Vector2, Vector3, Vector4 } from '../Vector';
 
 import { Polygon, Vector, testCirclePolygon } from 'sat';
-import { Entity } from "../primary/Entity";
+import { Entity } from '../primary/Entity';
 
 import Manager from './Manager';
 
@@ -41,7 +41,7 @@ export function getCircle3D(pos: Vector3, points: number, radius: number, screen
 
     const p = Math.PI * 2 / points;
 
-    const result: [Vector2, Vector2][] = []
+    const result: [Vector2, Vector2][] = [];
 
     for (let a = 0; a < Math.PI * 2; a += p) {
         const start = new Vector3(
@@ -70,7 +70,7 @@ export function getCircle3D(pos: Vector3, points: number, radius: number, screen
 
 export function hasEnemyOnPath(source: Entity, target: Entity) {
     const line = new Polygon(new Vector(source.screenPos.x, source.screenPos.y), [new Vector(target.screenPos.x, source.screenPos.y)]);
-    const entities: Entity[] = []
+    const entities: Entity[] = [];
     entities.push(...Manager.champions.enemies);
     entities.push(...Manager.minions.enemies);
     entities.push(...Manager.monsters);
@@ -85,7 +85,7 @@ export function calculateDamage(source: Entity, target: Entity, physicDmg: numbe
     const resultPhysic = calculatePhysicalDamage(source, target, physicDmg);
     const resultMagic = calculateMagicDamage(source, target, magicDmg);
     const resultTrue = trueDmg;
-    return resultPhysic + resultMagic + resultTrue
+    return resultPhysic + resultMagic + resultTrue;
 
 }
 export function calculatePhysicalDamage(source: Entity, target: Entity, damage: number) {
@@ -129,7 +129,7 @@ export function genericInRange(list: Entity[], range: number, options: OptionsIn
     return list.filter(e => {
         const deadCheck = options.includeDead ? true : !e.dead;
         const cloneCheck = options.includeClones ? true : e.level > 0;
-        return deadCheck && cloneCheck && e.visible && e.gamePos.dist(me.gamePos) < ((range + e.boundingBox + me.boundingBox))
+        return deadCheck && cloneCheck && e.visible && e.gamePos.dist(me.gamePos) < ((range + e.boundingBox + me.boundingBox));
     });
 }
 export function lowestHealthEnemyChampInRange(range: number, options: OptionsInRange = { includeClones: true, includeDead: false }) {

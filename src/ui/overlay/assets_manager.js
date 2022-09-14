@@ -9,5 +9,5 @@ function assets_manager_scoped() {
     function downloadAsset(url) {
         assets[url] = loadImage(url);
     }
-    return { getAsset, downloadAsset }
+    return { getAsset, downloadAsset };
 }

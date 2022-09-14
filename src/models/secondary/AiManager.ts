@@ -8,7 +8,7 @@ import { DataType } from '../../components/winapi/typings/enums/DataType';
 
 
 export class AiManager extends CachedClass {
-    constructor(public address: number) { super() }
+    constructor(public address: number) { super(); }
 
     get startPath(): Vector3 {
         return this.use('startPath', () => Vector3.fromData(League.read(this.address + Offsets.oAiManagerStartPath, DataType.VEC3)));

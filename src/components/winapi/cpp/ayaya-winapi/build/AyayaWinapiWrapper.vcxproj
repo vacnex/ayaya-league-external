@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{93E2CB41-B246-D640-1841-5379E9F2C615}</ProjectGuid>
+    <ProjectGuid>{A5B404FF-9CAD-B6C3-7C4D-BA5D63B1E2C6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AyayaWinapiWrapper</RootNamespace>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
   <PropertyGroup Label="Configuration">
@@ -47,7 +47,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -67,7 +67,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Emily\\AppData\\Local\\node-gyp\\Cache\\20.0.1\\ia32\\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\hybab\\AppData\\Local\\node-gyp\\Cache\\20.0.1\\ia32\\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -77,13 +77,13 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=AyayaWinapiWrapper;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_REVERSE_JSARGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
@@ -106,7 +106,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\Emily\\AppData\\Local\\node-gyp\\Cache\\20.0.1\\ia32\\node.lib&quot;</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;&quot;C:\\Users\\hybab\\AppData\\Local\\node-gyp\\Cache\\20.0.1\\ia32\\node.lib&quot;</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <DelayLoadDLLs>node.exe;%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -116,7 +116,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\Emily\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\include\node;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\src;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\config;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\openssl\openssl\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\uv\include;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\zlib;C:\Users\hybab\AppData\Local\node-gyp\Cache\20.0.1\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME=AyayaWinapiWrapper;USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;V8_DEPRECATION_WARNINGS;V8_IMMINENT_DEPRECATION_WARNINGS;_GLIBCXX_USE_CXX11_ABI=1;ELECTRON_ENSURE_CONFIG_GYPI;USING_ELECTRON_CONFIG_GYPI;V8_REVERSE_JSARGS;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;OPENSSL_NO_PINSHARED;OPENSSL_THREADS;OPENSSL_NO_ASM;BUILDING_NODE_EXTENSION;HOST_BINARY=&quot;node.exe&quot;;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
@@ -127,7 +127,7 @@
     <ClCompile Include="..\AyayaWinapiWrapper.cc">
       <ObjectFileName>$(IntDir)\AyayaWinapiWrapper.obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="C:\Users\Emily\AppData\Roaming\npm\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
+    <ClCompile Include="C:\Users\hybab\Documents\GitHub\ayaya-league-external\node_modules\node-gyp\src\win_delay_load_hook.cc"/>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
   <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets"/>

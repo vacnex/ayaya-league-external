@@ -7,7 +7,7 @@
     "include_dirs": [],
     "libraries": [],
     "msbuild_toolset": "v142",
-    "msvs_windows_target_platform_version": "10.0.18362.0"
+    "msvs_windows_target_platform_version": "10.0.19041.0"
   },
   "variables": {
     "asan": 0,
@@ -359,9 +359,19 @@
     "v8_trace_maps": 0,
     "v8_use_siphash": 1,
     "want_separate_host_toolset": 1,
-    "nodedir": "C:\\Users\\Emily\\AppData\\Local\\node-gyp\\Cache\\20.0.1",
+    "nodedir": "C:\\Users\\hybab\\AppData\\Local\\node-gyp\\Cache\\20.0.1",
     "standalone_static_library": 1,
-    "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe",
-    "target": "20.0.1"
+    "msbuild_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\MSBuild\\Current\\Bin\\MSBuild.exe",
+    "target": "20.0.1",
+    "cache": "C:\\Users\\hybab\\AppData\\Local\\npm-cache",
+    "globalconfig": "C:\\Users\\hybab\\AppData\\Roaming\\npm\\etc\\npmrc",
+    "global_prefix": "C:\\Users\\hybab\\AppData\\Roaming\\npm",
+    "init_module": "C:\\Users\\hybab\\.npm-init.js",
+    "local_prefix": "C:\\Users\\hybab\\Documents\\GitHub\\ayaya-league-external",
+    "metrics_registry": "https://registry.npmjs.org/",
+    "node_gyp": "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js",
+    "prefix": "C:\\Users\\hybab\\AppData\\Roaming\\npm",
+    "userconfig": "C:\\Users\\hybab\\.npmrc",
+    "user_agent": "npm/7.24.0 node/v16.10.0 win32 ia32 workspaces/false"
   }
 }

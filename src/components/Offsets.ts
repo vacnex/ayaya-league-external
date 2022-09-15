@@ -81,13 +81,13 @@ class Offsets {
   public oAiManagerDashSpeed = 0x1F8;
 
 
-  // --- MISSILES ---
-  public oMissileObjectEntry = 0x14;
-  public oMissileSpellInfo = 0x0260;
-  public oMissileSrcIdx = 0x2DC;
-  public oMissileDestIdx = 0x330;
-  public oMissileStartPos = 0x02DC;
-  public oMissileEndPos = 0x02E8;
+    // --- MISSILES ---
+    public oMissileObjectEntry = 0x14;
+    public oMissileSpellInfo = 0x260;
+    public oMissileSrcIdx = 0x2DC;
+    public oMissileDestIdx = 0x330;
+    public oMissileStartPos = 0x02DC;
+    public oMissileEndPos = 0x02E8;
 
 
   public oSpellBook = 0x2330;

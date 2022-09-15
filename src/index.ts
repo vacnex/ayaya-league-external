@@ -3,14 +3,12 @@ console.log('ELECTRON', process.versions.electron, 'NODE', process.versions.node
 // import * as ElectronRemote from '@electron/remote/main';
 // ElectronRemote.initialize();
 
-import { app, BrowserWindow, ipcMain, screen, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, ipcRenderer, protocol, screen, dialog } from 'electron';
 
 import League from './components/League';
 import Watcher from './services/LeagueWatcherService';
 import DrawService from './services/DrawService';
 import Manager from './models/main/Manager';
-
-// import WinApi from './components/winapi/Winapi';
 
 import * as path from 'path';
 import * as ScriptService from './services/ScriptService';
@@ -18,22 +16,17 @@ import { CachedClass } from './components/CachedClass';
 
 const DEBUG = (process.env.debug?.trim() == 'true');
 
-// import offsets = require('./offsets.min.js');
-
-
 
 app.whenReady().then(async () => {
-  // const exp = await offsets[2](app);
-  CachedClass.set('__offsets', 3155378975400000000);
-  init();
   start();
 });
 
 
-// let overlayWin;
+let overlayWin;
 let settingsWin;
 
 function createOverlay() {
+
   const win = new BrowserWindow({
     x: 0,
     y: 0,
@@ -56,10 +49,10 @@ function createOverlay() {
 
   if (DEBUG) win.webContents.openDevTools({ mode: 'detach' });
 
-  const file = path.join(__dirname, '../src/ui/overlay/overlay.html');
+  const file = path.join(__dirname, '../src/ui/overlay/overlay.html')
   win.loadFile(file);
 
-  // overlayWin = win;
+  overlayWin = win;
   return win;
 }
 function createSettings() {
@@ -82,39 +75,28 @@ function createSettings() {
 
   win.setAlwaysOnTop(true, 'screen-saver');
 
-  const file = path.join(__dirname, '../src/ui/settings/settings.html');
-  win.loadFile(file);
+  const file = path.join(__dirname, '../src/ui/settings/settings.html')
+  win.loadFile(file)
 
   settingsWin = win;
   return win;
 }
 
-function init() {
-
-  // Before you start messing with this code, this is not for checking your license it's only used to show you the message <.<
-  // The license checking is server-side
-
-  if (CachedClass.get('__offsets') < Date.now()) {
-    dialog.showMessageBox(undefined, { message: 'Your time is expired, please buy more time at our discord https://discord.gg/dH4TzxStCE' });
-    setTimeout(() => { app.exit(); }, 10000);
-  }
-
-}
 
 async function start() {
 
-  console.log('STARTING');
+  console.log('STARTING')
 
   const win = createOverlay();
   const sett = createSettings();
 
 
-  ipcMain.on('loaded', () => {
+  ipcMain.on('loaded', (e, args) => {
     const isRunning = Watcher.check();
     sett.webContents.send('inGame', isRunning);
   });
 
-  ipcMain.on('drawingContext', e => {
+  ipcMain.on('drawingContext', (e, args) => {
     if (!DEBUG) {
       if (!Watcher.isRunning) {
         e.returnValue = '[]';
@@ -131,7 +113,7 @@ async function start() {
 
   function sendScripts() {
     sett.webContents.send('scripts', ScriptService.getScripts().map(e => {
-      return { name: e.name, settings: e.settings };
+      return { name: e.name, settings: e.settings }
     }));
   }
 
@@ -145,22 +127,18 @@ async function start() {
     target.value = value;
   });
 
-  ipcMain.on('expired', () => {
+  ipcMain.on('expired', (e, args) => {
     app.exit();
   });
 
 
-  ipcMain.on('reloadScripts', () => {
-    ScriptService.reloadScripts();
+  ipcMain.on('reloadScripts', async () => {
+    await ScriptService.loadScripts();
     sendScripts();
-    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
-    if (Watcher.isRunning) ScriptService.executeFunction('setup');
-
   });
 
   ipcMain.on('settingsRequest', () => {
     sendScripts();
-    settingsWin.webContents.send('__offsets', JSON.stringify(CachedClass.get('__offsets')));
   });
 
   Watcher.startLoopCheck();
@@ -188,14 +166,12 @@ async function start() {
 
   let onTickExecutor;
   Watcher.onChange = (isRunning: boolean) => {
-    console.log('CHANGED', isRunning);
 
+    console.log('CHANGED', isRunning)
     win.webContents.send('inGame', isRunning);
     sett.webContents.send('inGame', isRunning);
 
     if (isRunning) {
-      ScriptService.executeFunction('setup');
-
       onTickExecutor = setInterval(() => {
         Manager.prepareForLoop();
         ScriptService.executeFunction('onTick');
@@ -210,9 +186,8 @@ async function start() {
       clearInterval(onTickExecutor);
     }
 
-  };
+  }
 
 
 }
-
 

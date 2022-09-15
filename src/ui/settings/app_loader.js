@@ -27,23 +27,16 @@ const state = Vue.reactive({
 });
 
 const app = Vue.createApp({
-  mounted,
-  data() { return state; },
-  methods: {
-    toggleSettings,
-    updateSettings,
-    reloadScripts,
-    closeWindow,
-    openDonateLink,
-    openMarket
-  },
-  computed: {
-    durationString() {
-      const a = ((state.offsets - state.now) / 1000).toFixed(0);
-      const b = ((state.offsets - state.now) / 1000 / 60).toFixed(0);
-      return `DURATION: ${a} s [${b} min]`;
+    mounted,
+    data() { return state },
+    methods: {
+        toggleSettings,
+        updateSettings,
+        reloadScripts,
+        closeWindow,
+        openDonateLink,
+        openMarket
     }
-  }
 });
 
 
@@ -93,9 +86,6 @@ ipcRenderer.on('toggleSettings', () => {
   toggleSettings();
 });
 
-ipcRenderer.on('__offsets', (e, data) => {
-  state.offsets = JSON.parse(data);
-});
 
 setInterval(() => {
   state.now = Date.now();

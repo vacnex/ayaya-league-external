@@ -5,3 +5,4 @@ Release/obj
 dist
 build
 *.hide
+settings.json

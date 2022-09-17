@@ -77,7 +77,21 @@ export function executeFunction(functionName: string, ...args: any) {
     if (!fn) continue;
     if (scriptObject.pending[functionName] == true) continue;
 
-    args = args || [];
+    const finalArgs = [...args] || [];
+
+
+    finalArgs.push(function getSetting(id) {
+      return getSettingRaw(scriptObject.settings, id)?.value;
+    })
+
+    try {
+      const exec = fn(...finalArgs);
+      if (!exec || !exec.then) continue;
+      scriptObject.pending[functionName] = true;
+      exec.then(() => scriptObject.pending[functionName] = false);
+    } catch (ex) {
+      console.error('Error during function', functionName, 'of', scriptObject.name, ex);
+    }
 
     args.push(function getSetting(id) {
       return getSettingRaw(scriptObject.settings, id)?.value;

@@ -38,7 +38,7 @@ function onDraw(getSettings) {
 }
 
 
-async function onTick(settings) {
+async function onTick(getSetting) {
 }
 
 function onDraw(getSetting) {

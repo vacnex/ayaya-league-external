@@ -28,8 +28,7 @@ function canAttack(attackDelay) { return lastAaTick + attackDelay < getTime() }
 
 function canMove() { return (canPlayerMove) }
 
-async function onTick(getSettings) {
-
+async function onTick(getSetting) {
     const orbEnabled = getSetting('orb.enabled');
     if (!orbEnabled) return;
     const orbKey = getSetting('orb.key');
@@ -52,7 +51,7 @@ async function onTick(getSettings) {
 
 }
 
-function onMissileCreate(missile, getSettings) {
+function onMissileCreate(missile, getSetting) {
     if (missile.spellName.startsWith(manager.me.name) && missile.spellName.includes('BasicAttack')) {
         canPlayerMove = true;
     }

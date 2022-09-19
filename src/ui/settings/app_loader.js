@@ -2,9 +2,11 @@
 const electron = require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
+const fs = require('fs');
+const path = require('path');
 
 const state = Vue.reactive({
-  version: '2.2.0',
+  version: "2.3.2",
   vKeys,
   updated: true,
   inGame: false,
@@ -27,16 +29,16 @@ const state = Vue.reactive({
 });
 
 const app = Vue.createApp({
-    mounted,
-    data() { return state },
-    methods: {
-        toggleSettings,
-        updateSettings,
-        reloadScripts,
-        closeWindow,
-        openDonateLink,
-        openMarket
-    }
+  mounted,
+  data() { return state; },
+  methods: {
+    toggleSettings,
+    updateSettings,
+    reloadScripts,
+    closeWindow,
+    openDonateLink,
+    openMarket
+  }
 });
 
 
@@ -48,7 +50,7 @@ function closeWindow() {
   window.close();
 }
 
-function reloadScripts() {
+function reloadScripts(event) {
   ipcRenderer.send('reloadScripts');
 }
 
@@ -73,6 +75,12 @@ const appElement = document.getElementById('app');
 appElement.style.visibility = 'hidden';
 
 
+// app.component('test', {
+//     template: fs.readFileSync(path.join(__dirname, '../comps/test.html'), 'utf8')
+// });
+
+
+
 fetch('http://95.216.218.179:7551/kofi').then(res => res.status != 500 ? res.json() : []).then(data => {
   state.donations = data;
 });
@@ -81,7 +89,7 @@ fetch('http://95.216.218.179:7551/static/ayaya_version').then(res => res.text())
 });
 
 
-ipcRenderer.on('toggleSettings', () => {
+ipcRenderer.on('toggleSettings', (e, data) => {
   console.log('TOGGLE SETTINGS');
   toggleSettings();
 });
@@ -119,6 +127,5 @@ function mounted() {
     ipcRenderer.send('settingsRequest');
   }, 1000);
 }
-
 
 
